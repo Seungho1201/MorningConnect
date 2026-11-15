@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 곧 내려요 진행 단계 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingStart="20dp"
+    android:paddingTop="4dp"
+    android:paddingEnd="20dp">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/bar1"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="@drawable/pill" />
+
+        <TextView
+            android:id="@+id/step1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="1 자리 위치"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/bar2"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="@drawable/pill" />
+
+        <TextView
+            android:id="@+id/step2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="2 알리기"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/bar3"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="@drawable/pill" />
+
+        <TextView
+            android:id="@+id/step3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="3 서로 찾기"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+</LinearLayout>

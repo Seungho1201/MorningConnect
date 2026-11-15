@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 공통 헤더: 원형 뒤로 버튼 + 제목 + 남은 정거장 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingStart="20dp"
+    android:paddingTop="24dp"
+    android:paddingEnd="20dp"
+    android:paddingBottom="8dp">
+
+    <ImageButton
+        android:id="@+id/back"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:background="@drawable/circle_outline"
+        android:contentDescription="홈으로"
+        android:padding="12dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_back" />
+
+    <TextView
+        android:id="@+id/title"
+        style="@style/Black"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_weight="1"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/pill"
+        android:drawablePadding="6dp"
+        android:gravity="center_vertical"
+        android:paddingStart="12dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="12dp"
+        android:paddingBottom="8dp"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        app:drawableStartCompat="@drawable/dot" />
+</LinearLayout>

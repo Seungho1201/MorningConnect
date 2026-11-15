@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ② 오픈톡: 같은 칸 대화방 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/header"
+        layout="@layout/view_header" />
+
+    <!-- 방 정보 -->
+    <com.google.android.material.card.MaterialCardView
+        style="@style/Card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="20dp"
+        app:cardCornerRadius="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="14dp"
+            android:paddingTop="12dp"
+            android:paddingEnd="14dp"
+            android:paddingBottom="12dp">
+
+            <TextView
+                style="@style/Black"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/box"
+                android:backgroundTint="@color/green"
+                android:gravity="center"
+                android:text="2"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/Black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="외선순환 · 같은 칸 7명"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="칸을 벗어나면 자동으로 나가고, 대화는 남지 않아요"
+                    android:textColor="@color/sub"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/members"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:layout_marginStart="12dp"
+                android:background="@drawable/circle_outline"
+                android:contentDescription="참여자 보기"
+                android:padding="12dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_people" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- 대화 -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="20dp"
+            android:paddingTop="16dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/pill"
+                android:backgroundTint="@color/white_60"
+                android:paddingStart="12dp"
+                android:paddingTop="6dp"
+                android:paddingEnd="12dp"
+                android:paddingBottom="6dp"
+                android:text="강남역 · 2명이 들어왔어요"
+                android:textColor="@color/sub"
+                android:textSize="12sp" />
+
+            <!-- 남색 코트 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/Card"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    app:cardBackgroundColor="#2C3E6B"
+                    app:cardCornerRadius="18dp"
+                    app:strokeColor="@color/ink"
+                    app:strokeWidth="2dp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="남색 코트"
+                        android:textColor="@color/sub"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:background="@drawable/bubble_in"
+                        android:lineSpacingExtra="4dp"
+                        android:maxWidth="250dp"
+                        android:paddingStart="14dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="14dp"
+                        android:paddingBottom="10dp"
+                        android:text="오늘 칸 안이 좀 덥지 않나요?"
+                        android:textSize="15sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 베이지 후드티 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/Card"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    app:cardBackgroundColor="#D9C3A0"
+                    app:cardCornerRadius="18dp"
+                    app:strokeColor="@color/ink"
+                    app:strokeWidth="2dp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="베이지 후드티"
+                        android:textColor="@color/sub"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:background="@drawable/bubble_in"
+                        android:lineSpacingExtra="4dp"
+                        android:maxWidth="250dp"
+                        android:paddingStart="14dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="14dp"
+                        android:paddingBottom="10dp"
+                        android:text="약냉방 칸이 4번째 칸이래요"
+                        android:textSize="15sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 회색 패딩: 가려진 메시지 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/Card"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    app:cardBackgroundColor="#9AA0A3"
+                    app:cardCornerRadius="18dp"
+                    app:strokeColor="@color/ink"
+                    app:strokeWidth="2dp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="회색 패딩"
+                        android:textColor="@color/sub"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:background="@drawable/bubble_hidden"
+                        android:drawablePadding="8dp"
+                        android:drawableTint="@color/sub"
+                        android:gravity="center_vertical"
+                        android:lineSpacingExtra="4dp"
+                        android:maxWidth="250dp"
+                        android:paddingStart="13dp"
+                        android:paddingTop="9dp"
+                        android:paddingEnd="13dp"
+                        android:paddingBottom="9dp"
+                        android:text="부적절한 표현이 있어 가려진 메시지예요"
+                        android:textColor="@color/sub"
+                        android:textSize="14sp"
+                        app:drawableStartCompat="@drawable/ic_eye_off" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 나 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginTop="14dp"
+                android:text="나 · 초록 니트"
+                android:textColor="@color/sub"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/bubble_out"
+                android:lineSpacingExtra="4dp"
+                android:maxWidth="250dp"
+                android:paddingStart="14dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="14dp"
+                android:paddingBottom="10dp"
+                android:text="감사해요, 다음 역에서 옮겨 볼게요"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="14dp"
+                android:text="메시지를 길게 누르면 신고할 수 있어요"
+                android:textColor="@color/sub"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- 빠른 답장 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="8dp">
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/Btn.Outline.Pill"
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            android:paddingStart="14dp"
+            android:paddingEnd="14dp"
+            android:text="여기 자리 있어요?" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/Btn.Outline.Pill"
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            android:layout_marginStart="8dp"
+            android:paddingStart="14dp"
+            android:paddingEnd="14dp"
+            android:text="고마워요" />
+    </LinearLayout>
+
+    <!-- 입력 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="20dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="28dp">
+
+        <EditText
+            android:id="@+id/message"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_weight="1"
+            android:autofillHints=""
+            android:background="@drawable/pill_outline"
+            android:hint="같은 칸에 메시지 보내기"
+            android:inputType="text"
+            android:paddingStart="18dp"
+            android:paddingEnd="18dp"
+            android:textSize="15sp" />
+
+        <ImageButton
+            android:id="@+id/send"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/circle"
+            android:backgroundTint="@color/green_dark"
+            android:contentDescription="보내기"
+            android:padding="15dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_send"
+            app:tint="@color/white" />
+    </LinearLayout>
+</LinearLayout>

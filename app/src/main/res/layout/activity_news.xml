@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ④ 뉴스 + 하차 알림 끼어들기 -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/header"
+            layout="@layout/view_header" />
+
+        <!-- 분야 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="20dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="12dp">
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/Btn.Outline.Pill"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
+                android:text="주요"
+                android:textColor="@color/white"
+                app:backgroundTint="@color/ink"
+                app:cornerRadius="20dp" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/Btn.Outline.Pill"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
+                android:text="경제"
+                app:cornerRadius="20dp" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/Btn.Outline.Pill"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
+                android:text="사회"
+                app:cornerRadius="20dp" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/Btn.Outline.Pill"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
+                android:text="IT"
+                app:cornerRadius="20dp" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/Btn.Outline.Pill"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
+                android:text="날씨"
+                app:cornerRadius="20dp" />
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="20dp">
+
+                <!-- 1위: 세 줄 요약까지 -->
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/Card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                style="@style/Black"
+                                android:layout_width="20dp"
+                                android:layout_height="wrap_content"
+                                android:text="1"
+                                android:textColor="@color/green_text"
+                                android:textSize="20sp" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    style="@style/Black"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:ellipsize="end"
+                                    android:lineSpacingExtra="5dp"
+                                    android:maxLines="2"
+                                    android:text="[헤드라인 1] 기사 제목은 최대 두 줄까지 보여 주고 넘치면 말줄임"
+                                    android:textSize="16sp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="4dp"
+                                    android:text="[언론사] · [시간]"
+                                    android:textColor="@color/sub"
+                                    android:textSize="12sp" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="32dp"
+                            android:layout_marginTop="10dp"
+                            android:lineSpacingExtra="6dp"
+                            android:text="•  [세 줄 요약 1]\n•  [세 줄 요약 2]\n•  [세 줄 요약 3]"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/original"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="32dp"
+                            android:layout_marginTop="10dp"
+                            android:text="원문 보기"
+                            android:textColor="@color/green_text"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/Card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="16dp">
+
+                        <TextView
+                            style="@style/Black"
+                            android:layout_width="20dp"
+                            android:layout_height="wrap_content"
+                            android:text="2"
+                            android:textColor="@color/green_text"
+                            android:textSize="20sp" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="[헤드라인 2] 기사 제목"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:text="[언론사] · [시간]"
+                                android:textColor="@color/sub"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/Card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="16dp">
+
+                        <TextView
+                            style="@style/Black"
+                            android:layout_width="20dp"
+                            android:layout_height="wrap_content"
+                            android:text="3"
+                            android:textColor="@color/green_text"
+                            android:textSize="20sp" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="[헤드라인 3] 기사 제목"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:text="[언론사] · [시간]"
+                                android:textColor="@color/sub"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/Card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="16dp">
+
+                        <TextView
+                            style="@style/Black"
+                            android:layout_width="20dp"
+                            android:layout_height="wrap_content"
+                            android:text="4"
+                            android:textColor="@color/green_text"
+                            android:textSize="20sp" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="[헤드라인 4] 기사 제목"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:text="[언론사] · [시간]"
+                                android:textColor="@color/sub"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+    <!-- 하차 타이밍 알림 -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/tip"
+        style="@style/Card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="24dp"
+        android:accessibilityLiveRegion="polite"
+        app:cardBackgroundColor="@color/ink"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/Black"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/circle"
+                    android:backgroundTint="@color/green"
+                    android:gravity="center"
+                    android:importantForAccessibility="no"
+                    android:text="2"
+                    android:textSize="18sp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/Black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="사당까지 2정거장 남았어요"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:lineSpacingExtra="4dp"
+                        android:text="지금 \'곧 내려요\'를 누르면 같은 칸에서 서 있는 분에게 자리를 넘길 수 있어요"
+                        android:textColor="@color/gray_light"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+                <ImageButton
+                    android:id="@+id/closeTip"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:layout_marginTop="-8dp"
+                    android:layout_marginEnd="-8dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="알림 닫기"
+                    android:padding="13dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_close"
+                    app:tint="@color/white" />
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/seat"
+                style="@style/Btn"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginTop="12dp"
+                android:text="곧 내려요"
+                android:textColor="@color/ink"
+                app:backgroundTint="@color/green"
+                app:cornerRadius="14dp" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+</FrameLayout>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- QR 스캔 영역 네 모서리 -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="200"
+    android:viewportHeight="200">
+    <path
+        android:pathData="M3,40V12a9,9 0,0 1,9 -9H40M160,3H188a9,9 0,0 1,9 9V40M197,160V188a9,9 0,0 1,-9 9H160M40,197H12a9,9 0,0 1,-9 -9V160"
+        android:strokeWidth="6"
+        android:strokeColor="@color/green" />
+</vector>

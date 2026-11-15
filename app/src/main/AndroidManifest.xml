@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.MorningConnect">
+        <!-- 홈 (원형 메뉴) -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <!-- ① 오늘의 룩 -->
+        <activity android:name=".LookActivity" />
+        <!-- ② 오픈톡 -->
+        <activity
+            android:name=".TalkActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <!-- ③ 미니게임 + 자리 알림 -->
+        <activity android:name=".GameActivity" />
+        <!-- ④ 뉴스 + 하차 알림 -->
+        <activity android:name=".NewsActivity" />
+        <!-- ⑤ 이곳 사진 -->
+        <activity android:name=".PhotoActivity" />
+        <!-- 곧 내려요 1 · 자리 위치 선택 -->
+        <activity android:name=".SeatActivity" />
+        <!-- 곧 내려요 2 · 같은 칸에 알림 -->
+        <activity android:name=".WaitActivity" />
+        <!-- 곧 내려요 3 · 서로 찾기 + 하차 직전 재확인 -->
+        <activity android:name=".MatchActivity" />
+        <!-- 곧 내려요 4 · 인증서 확인 · 인계 완료 -->
+        <activity android:name=".DoneActivity" />
+    </application>
+
+</manifest>

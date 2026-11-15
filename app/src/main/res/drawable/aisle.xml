@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 통로: 좌우 점선만 보이게 위아래 선은 밖으로 밀어냄 -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:bottom="-3dp" android:top="-3dp">
+        <shape>
+            <stroke android:width="2dp" android:color="@color/gray" android:dashWidth="6dp" android:dashGap="4dp" />
+        </shape>
+    </item>
+</layer-list>
