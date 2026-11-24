@@ -1,19 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- 디자인 색상 -->
 <resources>
-    <color name="bg">#E4E9E5</color>
+    <color name="bg">#E6EAE7</color>
     <color name="ink">#1E2420</color>
-    <color name="sub">#555E57</color>
+    <color name="sub">#5F6862</color>
+    <color name="hint">#8E9791</color>
     <color name="green">#4CA555</color>
     <color name="green_dark">#2E8540</color>
     <color name="green_text">#256E35</color>
-    <color name="gray">#C9D0CB</color>
-    <color name="gray_light">#D5DCD7</color>
+    <color name="green_soft">#E4F0E6</color>
     <color name="halo">#CFE3D2</color>
+    <color name="gray">#C9D0CB</color>
+    <color name="seat">#DDE3DF</color>
+    <color name="divider">#E3E7E4</color>
+    <color name="chip">#F1F3F2</color>
+    <color name="photo">#D3D9D5</color>
     <color name="white">#FFFFFF</color>
-    <color name="white_60">#99FFFFFF</color>
-    <color name="orange">#FF9A3C</color>
+    <color name="white_25">#40FFFFFF</color>
+    <color name="door">#F2C84B</color>
+    <color name="orange">#F07E22</color>
+    <color name="orange_match">#F5A04C</color>
+    <color name="orange_soft">#FDE7D3</color>
+    <color name="orange_text">#A8500F</color>
+    <color name="dark">#1E2420</color>
+    <color name="dark_card">#2B312D</color>
+    <color name="dark_sub">#B8C0BA</color>
+    <color name="pink_soft">#FBE3EA</color>
+    <color name="pink">#B03A5B</color>
+    <color name="news_dark">#3B423D</color>
     <color name="mint">#8FD39A</color>
-    <color name="scrim">#731E2420</color>
-    <color name="ripple">#1F1E2420</color>
 </resources>

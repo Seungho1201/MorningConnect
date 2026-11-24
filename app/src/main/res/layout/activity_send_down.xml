@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 곧 내려요 알림: 도착 정보 + 내 자리 위치 + 인상착의 + 임산부 우선 → 같은 칸에 알리기 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/header"
+        layout="@layout/view_header" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="20dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="16dp">
+
+            <!-- 도착까지 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/card_green"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:id="@+id/arriveLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#E6FFFFFF"
+                    android:textSize="14sp"
+                    tools:text="사당 도착까지" />
+
+                <TextView
+                    android:id="@+id/arriveIn"
+                    style="@style/Black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:textColor="@color/white"
+                    android:textSize="30sp"
+                    tools:text="2정거장 · 약 4분" />
+
+                <TextView
+                    android:id="@+id/train"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:minHeight="32dp"
+                    android:gravity="center_vertical"
+                    android:textColor="#E6FFFFFF"
+                    android:textSize="14sp"
+                    tools:text="2호선 외선순환 · 3번째 칸" />
+            </LinearLayout>
+
+            <!-- 내 자리 위치 -->
+            <LinearLayout
+                style="@style/Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        style="@style/Black"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="내 자리 위치"
+                        android:textSize="17sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="눌러서 선택"
+                        android:textColor="@color/sub"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+                <com.example.morningconnect.SeatMapView
+                    android:id="@+id/seatMap"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp">
+
+                    <TextView
+                        android:id="@+id/door"
+                        style="@style/Pill"
+                        android:layout_height="40dp"
+                        android:background="@drawable/pill_soft"
+                        android:textColor="@color/green_text"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        tools:text="3-2 문 오른쪽" />
+
+                    <TextView
+                        android:id="@+id/pos"
+                        style="@style/Pill"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="8dp"
+                        android:background="@drawable/pill_soft"
+                        android:textColor="@color/green_text"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        tools:text="끝에서 두 번째 자리" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 인상착의 -->
+            <LinearLayout
+                android:id="@+id/lookCard"
+                style="@style/Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:padding="16dp">
+
+                <com.example.morningconnect.CharacterView
+                    android:id="@+id/avatar"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:background="@drawable/box_avatar"
+                    android:padding="6dp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="인상착의로 전달돼요"
+                        android:textColor="@color/sub"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/lookText"
+                        style="@style/Black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:textSize="16sp"
+                        tools:text="검정 패딩 · 청바지 · 흰 운동화" />
+                </LinearLayout>
+
+                <TextView
+                    style="@style/Black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="수정"
+                    android:textColor="@color/green_text"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <!-- 임산부 우선 -->
+            <LinearLayout
+                style="@style/Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:padding="16dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/Black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="임산부 우선 알림"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="인증된 임산부에게 먼저 알려요"
+                        android:textColor="@color/sub"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+                <com.google.android.material.materialswitch.MaterialSwitch
+                    android:id="@+id/pregnant"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="임산부 우선 알림" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- 알리기 / 기다리는 중 -->
+    <LinearLayout
+        android:id="@+id/waiting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center_vertical"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            app:indicatorColor="@color/green_dark"
+            app:indicatorSize="20dp"
+            app:trackThickness="3dp" />
+
+        <TextView
+            android:id="@+id/waitingText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:accessibilityLiveRegion="polite"
+            android:text="같은 칸에 알렸어요. '갈게요'를 기다리는 중…"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/notify"
+        style="@style/Btn"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        tools:text="같은 칸 7명에게 알리기" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="16dp"
+        android:gravity="center"
+        android:text="알리고 내리지 않으면 신뢰도가 내려가요"
+        android:textColor="@color/sub"
+        android:textSize="13sp" />
+</LinearLayout>

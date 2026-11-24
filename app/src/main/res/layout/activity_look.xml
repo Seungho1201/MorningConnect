@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- ① 오늘의 룩 -->
+<!-- 오늘의 룩: 캐릭터 + 분류 탭 + 색상 + 종류 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/main"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg"
     android:orientation="vertical">
 
     <include
         android:id="@+id/header"
         layout="@layout/view_header" />
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
@@ -20,212 +19,107 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clipChildren="false"
             android:orientation="vertical"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp">
+            android:paddingBottom="16dp">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:lineSpacingExtra="4dp"
-                android:text="지금 입은 옷과 비슷하게 골라 주세요. 자리를 주고받을 때 상대가 나를 알아보는 표시예요."
-                android:textColor="@color/sub"
-                android:textSize="14sp" />
-
-            <!-- 미리보기 -->
-            <com.google.android.material.card.MaterialCardView
+            <FrameLayout
                 style="@style/Card"
                 android:layout_width="match_parent"
-                android:layout_height="196dp"
-                app:cardCornerRadius="24dp">
+                android:layout_height="290dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="20dp">
 
-                <LinearLayout
+                <com.example.morningconnect.CharacterView
+                    android:id="@+id/character"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="48dp" />
+
+                <TextView
+                    android:id="@+id/summary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:importantForAccessibility="no"
                     android:paddingStart="16dp"
-                    android:paddingTop="12dp"
                     android:paddingEnd="16dp"
-                    android:paddingBottom="12dp">
+                    android:paddingBottom="14dp"
+                    android:textColor="@color/sub"
+                    android:textSize="14sp"
+                    tools:text="검정 패딩 · 청바지 · 흰 운동화" />
+            </FrameLayout>
 
-                    <com.example.morningconnect.CharacterView
-                        android:id="@+id/character"
-                        android:layout_width="140dp"
-                        android:layout_height="176dp"
-                        android:contentDescription="오늘의 룩 캐릭터" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="상대에게 이렇게 보여요"
-                            android:textColor="@color/sub"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/desc"
-                            style="@style/Black"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:lineSpacingExtra="4dp"
-                            android:textSize="17sp" />
-
-                        <TextView
-                            android:id="@+id/nick"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:textColor="@color/sub"
-                            android:textSize="12sp" />
-                    </LinearLayout>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- 옷 종류 탭 -->
-            <LinearLayout
-                android:id="@+id/tabs"
+            <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:orientation="horizontal">
+                android:clipToPadding="false"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:scrollbars="none">
 
-                <com.google.android.material.button.MaterialButton
-                    style="@style/Btn.Outline.Pill"
-                    android:layout_width="0dp"
-                    android:layout_height="44dp"
-                    android:layout_weight="1"
-                    android:text="상의"
-                    android:textSize="15sp" />
+                <LinearLayout
+                    android:id="@+id/tabs"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </HorizontalScrollView>
 
-                <com.google.android.material.button.MaterialButton
-                    style="@style/Btn.Outline.Pill"
-                    android:layout_width="0dp"
-                    android:layout_height="44dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_weight="1"
-                    android:text="하의"
-                    android:textSize="15sp" />
-
-                <com.google.android.material.button.MaterialButton
-                    style="@style/Btn.Outline.Pill"
-                    android:layout_width="0dp"
-                    android:layout_height="44dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_weight="1"
-                    android:text="겉옷"
-                    android:textSize="15sp" />
-
-                <com.google.android.material.button.MaterialButton
-                    style="@style/Btn.Outline.Pill"
-                    android:layout_width="0dp"
-                    android:layout_height="44dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_weight="1"
-                    android:text="가방"
-                    android:textSize="15sp" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/kindLabel"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                style="@style/Card"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="16dp"
-                android:textColor="@color/sub"
-                android:textSize="13sp"
-                android:textStyle="bold" />
+                android:layout_marginEnd="20dp"
+                android:orientation="vertical"
+                android:padding="16dp">
 
-            <!-- 종류 (탭마다 글자가 바뀜) -->
-            <LinearLayout
-                android:id="@+id/styles"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:orientation="horizontal">
-
-                <com.google.android.material.button.MaterialButton
-                    style="@style/Btn.Outline.Pill"
+                <TextView
+                    android:id="@+id/colorLabel"
+                    style="@style/Black"
                     android:layout_width="wrap_content"
-                    android:layout_height="44dp"
-                    android:textSize="15sp" />
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    tools:text="상의 색상" />
 
-                <com.google.android.material.button.MaterialButton
-                    style="@style/Btn.Outline.Pill"
-                    android:layout_width="wrap_content"
-                    android:layout_height="44dp"
-                    android:layout_marginStart="8dp"
-                    android:textSize="15sp" />
+                <GridLayout
+                    android:id="@+id/swatches"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:columnCount="6"
+                    android:useDefaultMargins="false" />
 
-                <com.google.android.material.button.MaterialButton
-                    style="@style/Btn.Outline.Pill"
+                <TextView
+                    style="@style/Black"
                     android:layout_width="wrap_content"
-                    android:layout_height="44dp"
-                    android:layout_marginStart="8dp"
-                    android:textSize="15sp" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="종류"
+                    android:textSize="16sp" />
 
-                <com.google.android.material.button.MaterialButton
-                    style="@style/Btn.Outline.Pill"
-                    android:layout_width="wrap_content"
-                    android:layout_height="44dp"
-                    android:layout_marginStart="8dp"
-                    android:textSize="15sp" />
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/kinds"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    app:chipSpacingHorizontal="8dp"
+                    app:singleSelection="true"
+                    xmlns:app="http://schemas.android.com/apk/res-auto" />
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/colorLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:textColor="@color/sub"
-                android:textSize="13sp"
-                android:textStyle="bold" />
-
-            <!-- 색 8개 (코드에서 채움) -->
-            <LinearLayout
-                android:id="@+id/swatches"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:clipChildren="false"
-                android:orientation="horizontal" />
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
-    <LinearLayout
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/save"
+        style="@style/Btn"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingStart="20dp"
-        android:paddingTop="12dp"
-        android:paddingEnd="20dp"
-        android:paddingBottom="28dp">
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/loadYesterday"
-            style="@style/Btn.Outline"
-            android:layout_width="0dp"
-            android:layout_height="56dp"
-            android:layout_weight="1"
-            android:text="어제 룩 불러오기" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/save"
-            style="@style/Btn"
-            android:layout_width="0dp"
-            android:layout_height="56dp"
-            android:layout_marginStart="10dp"
-            android:layout_weight="1.4"
-            android:text="오늘의 룩 저장"
-            android:textSize="16sp" />
-    </LinearLayout>
+        android:layout_height="60dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="16dp"
+        android:text="오늘의 룩 저장" />
 </LinearLayout>

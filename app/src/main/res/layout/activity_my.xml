@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 마이: 포인트 · 신뢰도 · 통계 · 기프티콘 교환 · 임산부 인증 · 오늘의 룩 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/header"
+        layout="@layout/view_header" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="20dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="20dp">
+
+            <!-- 포인트 · 신뢰도 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/card_green"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="내 포인트"
+                    android:textColor="#E6FFFFFF"
+                    android:textSize="14sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/points"
+                        style="@style/Black"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/white"
+                        android:textSize="34sp"
+                        tools:text="1,340P" />
+
+                    <TextView
+                        android:id="@+id/history"
+                        style="@style/Pill"
+                        android:layout_height="40dp"
+                        android:background="@drawable/pill_glass"
+                        android:text="내역 보기"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="신뢰도"
+                        android:textColor="#E6FFFFFF"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/trust"
+                        style="@style/Black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="15sp"
+                        tools:text="96 / 100" />
+                </LinearLayout>
+
+                <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:id="@+id/trustBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:max="100"
+                    app:indicatorColor="@color/white"
+                    app:trackColor="@color/white_25"
+                    app:trackCornerRadius="5dp"
+                    app:trackThickness="10dp" />
+
+                <TextView
+                    android:id="@+id/promises"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textColor="#E6FFFFFF"
+                    android:textSize="13sp"
+                    tools:text="약속 이행 42/43회 · 받은 칭찬 31개" />
+            </LinearLayout>
+
+            <!-- 통계 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp">
+
+                <LinearLayout
+                    android:id="@+id/givenBox"
+                    style="@style/Card"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:focusable="true"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="넘겨준 자리"
+                        android:textColor="@color/sub"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/given"
+                        style="@style/Black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:textSize="21sp"
+                        tools:text="43" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/receivedBox"
+                    style="@style/Card"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:focusable="true"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="받은 자리"
+                        android:textColor="@color/sub"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/received"
+                        style="@style/Black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:textSize="21sp"
+                        tools:text="17" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/monthBox"
+                    style="@style/Card"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:focusable="true"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="이번 달"
+                        android:textColor="@color/sub"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/month"
+                        style="@style/Black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:maxLines="1"
+                        android:textSize="21sp"
+                        app:autoSizeMaxTextSize="21sp"
+                        app:autoSizeMinTextSize="14sp"
+                        app:autoSizeTextType="uniform"
+                        tools:text="+420P" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 기프티콘 교환 -->
+            <LinearLayout
+                style="@style/Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        style="@style/Black"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:accessibilityHeading="true"
+                        android:text="기프티콘 교환"
+                        android:textSize="17sp" />
+
+                    <TextView
+                        android:id="@+id/allGifts"
+                        style="@style/Black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:background="?attr/selectableItemBackground"
+                        android:gravity="center"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="4dp"
+                        android:text="전체 보기"
+                        android:textColor="@color/green_text"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/gifts"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp" />
+            </LinearLayout>
+
+            <!-- 메뉴 -->
+            <LinearLayout
+                style="@style/Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:orientation="vertical"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp">
+
+                <LinearLayout
+                    android:id="@+id/pregnant"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:gravity="center_vertical"
+                    android:paddingStart="16dp"
+                    android:paddingTop="10dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="10dp">
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:background="@drawable/box_pink"
+                        android:importantForAccessibility="no"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_heart"
+                        app:tint="@color/pink" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/pregnantTitle"
+                            style="@style/Black"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            tools:text="임산부 인증" />
+
+                        <TextView
+                            android:id="@+id/pregnantSub"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/sub"
+                            android:textSize="13sp"
+                            tools:text="인증 시 자리 알림을 먼저 받아요" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/ic_chevron" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@color/divider" />
+
+                <LinearLayout
+                    android:id="@+id/look"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:gravity="center_vertical"
+                    android:paddingStart="16dp"
+                    android:paddingTop="10dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="10dp">
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:background="@drawable/box_soft"
+                        android:importantForAccessibility="no"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_shirt"
+                        app:tint="@color/green_text" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:layout_weight="1"
+                        android:text="오늘의 룩 관리"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/ic_chevron" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@color/divider" />
+
+                <LinearLayout
+                    android:id="@+id/coupons"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:gravity="center_vertical"
+                    android:paddingStart="16dp"
+                    android:paddingTop="10dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="10dp">
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:background="@drawable/box_soft"
+                        android:importantForAccessibility="no"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_ticket"
+                        app:tint="@color/green_text" />
+
+                    <TextView
+                        android:id="@+id/couponsTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:layout_weight="1"
+                        android:textSize="16sp"
+                        tools:text="내 쿠폰함 2" />
+
+                    <ImageView
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/ic_chevron" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>
