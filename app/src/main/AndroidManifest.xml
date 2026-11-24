@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- 헤드라인 뉴스 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 하차역 알림 -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <!-- 인증서 스캔 · 사진 찍기 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.TTS_SERVICE" />
+        </intent>
+    </queries>
 
     <application
         android:allowBackup="true"
@@ -8,36 +26,64 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MorningConnect">
-        <!-- 홈 (원형 메뉴) -->
+
+        <!-- 홈 -->
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!-- ① 오늘의 룩 -->
-        <activity android:name=".LookActivity" />
-        <!-- ② 오픈톡 -->
+        <!-- 곧 내려요 알림 (넘겨주는 사람) -->
+        <activity android:name=".SendDownActivity" />
+        <!-- 새 자리 알림 (받는 사람) -->
         <activity
-            android:name=".TalkActivity"
-            android:windowSoftInputMode="adjustResize" />
-        <!-- ③ 미니게임 + 자리 알림 -->
-        <activity android:name=".GameActivity" />
-        <!-- ④ 뉴스 + 하차 알림 -->
-        <activity android:name=".NewsActivity" />
-        <!-- ⑤ 이곳 사진 -->
-        <activity android:name=".PhotoActivity" />
-        <!-- 곧 내려요 1 · 자리 위치 선택 -->
-        <activity android:name=".SeatActivity" />
-        <!-- 곧 내려요 2 · 같은 칸에 알림 -->
-        <activity android:name=".WaitActivity" />
-        <!-- 곧 내려요 3 · 서로 찾기 + 하차 직전 재확인 -->
+            android:name=".ReceiveActivity"
+            android:theme="@style/Theme.MorningConnect.Dark" />
+        <!-- 연결됐어요 -->
         <activity android:name=".MatchActivity" />
-        <!-- 곧 내려요 4 · 인증서 확인 · 인계 완료 -->
+        <!-- 인계 완료 -->
         <activity android:name=".DoneActivity" />
+        <!-- 하차역 알림 -->
+        <activity
+            android:name=".DestinationActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <!-- 오늘의 룩 -->
+        <activity android:name=".LookActivity" />
+        <!-- 이곳 사진 -->
+        <activity android:name=".PhotoActivity" />
+        <!-- 헤드라인 뉴스 -->
+        <activity android:name=".NewsActivity" />
+        <!-- 마이 -->
+        <activity android:name=".MyActivity" />
+
+        <!-- QR 스캔 화면을 세로로도 쓸 수 있게 -->
+        <activity
+            android:name="com.journeyapps.barcodescanner.CaptureActivity"
+            android:screenOrientation="fullSensor"
+            tools:replace="screenOrientation" />
+
+        <receiver
+            android:name=".ArrivalReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.files"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
 
 </manifest>

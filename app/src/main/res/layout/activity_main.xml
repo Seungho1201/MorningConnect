@@ -1,419 +1,583 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 홈: 노선 위치 + 원형 메뉴 -->
+<!-- 홈 (스크롤 없는 고정 화면): 메뉴 · 노선 위치 · 하차역 · 돌릴 수 있는 원형 메뉴 -->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/main"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg">
 
-    <!-- 호선 -->
-    <TextView
-        android:id="@+id/lineBadge"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/circle"
-        android:backgroundTint="@color/green"
-        android:gravity="center"
-        android:text="2"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <!-- 왼쪽 위 메뉴: 마이 페이지 (포인트 · 신뢰도 · 기프티콘 …) -->
+        <ImageButton
+            android:id="@+id/my"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="메뉴, 마이 페이지"
+            android:padding="12dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_menu"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/lineName"
-        style="@style/Black"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="호선 외선순환"
-        android:textSize="17sp"
-        app:layout_constraintBottom_toBottomOf="@id/lineBadge"
-        app:layout_constraintStart_toEndOf="@id/lineBadge"
-        app:layout_constraintTop_toTopOf="@id/lineBadge" />
+        <!-- 호선 · 방향 (누르면 외선/내선 바꾸기) -->
+        <LinearLayout
+            android:id="@+id/line"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginStart="2dp"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            app:layout_constraintBottom_toBottomOf="@id/my"
+            app:layout_constraintStart_toEndOf="@id/my"
+            app:layout_constraintTop_toTopOf="@id/my">
 
-    <TextView
-        android:id="@+id/carCount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:drawablePadding="4dp"
-        android:drawableTint="@color/sub"
-        android:gravity="center_vertical"
-        android:text="같은 칸 7명"
-        android:textColor="@color/sub"
-        android:textSize="15sp"
-        app:drawableStartCompat="@drawable/ic_bluetooth"
-        app:layout_constraintBottom_toBottomOf="@id/lineBadge"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/lineBadge" />
+            <TextView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/circle"
+                android:backgroundTint="@color/green"
+                android:gravity="center"
+                android:importantForAccessibility="no"
+                android:text="2"
+                android:textColor="@color/white"
+                android:textSize="17sp"
+                android:textStyle="bold" />
 
-    <!-- 노선도: 역삼 - 강남(지금) - 교대 -->
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/gPrev"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.21" />
+            <TextView
+                android:id="@+id/lineName"
+                style="@style/Black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:textSize="20sp"
+                tools:text="호선 외선순환" />
+        </LinearLayout>
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/gNow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5" />
+        <!-- 같은 칸 인원 (주변 탐지는 시뮬레이션) -->
+        <TextView
+            android:id="@+id/carCount"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginEnd="16dp"
+            android:background="?attr/selectableItemBackground"
+            android:drawablePadding="8dp"
+            android:gravity="center_vertical"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:textColor="@color/sub"
+            android:textSize="15sp"
+            app:drawableStartCompat="@drawable/ic_bluetooth"
+            app:drawableTint="@color/sub"
+            app:layout_constraintBottom_toBottomOf="@id/line"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/line"
+            tools:text="같은 칸 7명" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/gNext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.785" />
+        <!-- 노선도: 이전 - 지금 - 다음 -->
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gPrev"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.2" />
 
-    <View
-        android:id="@+id/track"
-        android:layout_width="0dp"
-        android:layout_height="5dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="52dp"
-        android:background="@color/green"
-        app:layout_constraintEnd_toStartOf="@id/trackArrow"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/lineBadge" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gNow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
 
-    <ImageView
-        android:id="@+id/trackArrow"
-        android:layout_width="10dp"
-        android:layout_height="14dp"
-        android:layout_marginEnd="16dp"
-        android:importantForAccessibility="no"
-        android:src="@drawable/arrow_head"
-        app:layout_constraintBottom_toBottomOf="@id/track"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/track" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.8" />
 
-    <View
-        android:id="@+id/stopPrev"
-        android:layout_width="14dp"
-        android:layout_height="14dp"
-        android:background="@drawable/station"
-        app:layout_constraintBottom_toBottomOf="@id/track"
-        app:layout_constraintEnd_toEndOf="@id/gPrev"
-        app:layout_constraintStart_toStartOf="@id/gPrev"
-        app:layout_constraintTop_toTopOf="@id/track" />
+        <View
+            android:id="@+id/track"
+            android:layout_width="0dp"
+            android:layout_height="6dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="44dp"
+            android:background="@color/green"
+            app:layout_constraintEnd_toStartOf="@id/trackArrow"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/line" />
 
-    <View
-        android:id="@+id/stopNow"
-        android:layout_width="28dp"
-        android:layout_height="28dp"
-        android:background="@drawable/station_now"
-        app:layout_constraintBottom_toBottomOf="@id/track"
-        app:layout_constraintEnd_toEndOf="@id/gNow"
-        app:layout_constraintStart_toStartOf="@id/gNow"
-        app:layout_constraintTop_toTopOf="@id/track" />
+        <ImageView
+            android:id="@+id/trackArrow"
+            android:layout_width="20dp"
+            android:layout_height="22dp"
+            android:layout_marginEnd="20dp"
+            android:importantForAccessibility="no"
+            android:scaleType="fitXY"
+            android:src="@drawable/arrow_head"
+            app:layout_constraintBottom_toBottomOf="@id/track"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/track" />
 
-    <View
-        android:id="@+id/stopNext"
-        android:layout_width="14dp"
-        android:layout_height="14dp"
-        android:background="@drawable/station"
-        app:layout_constraintBottom_toBottomOf="@id/track"
-        app:layout_constraintEnd_toEndOf="@id/gNext"
-        app:layout_constraintStart_toStartOf="@id/gNext"
-        app:layout_constraintTop_toTopOf="@id/track" />
+        <View
+            android:id="@+id/stopPrev"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/station"
+            app:layout_constraintBottom_toBottomOf="@id/track"
+            app:layout_constraintEnd_toEndOf="@id/gPrev"
+            app:layout_constraintStart_toStartOf="@id/gPrev"
+            app:layout_constraintTop_toTopOf="@id/track" />
 
-    <TextView
-        android:id="@+id/prevName"
-        style="@style/Black"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="역삼"
-        android:textSize="17sp"
-        app:layout_constraintEnd_toEndOf="@id/gPrev"
-        app:layout_constraintStart_toStartOf="@id/gPrev"
-        app:layout_constraintTop_toBottomOf="@id/track" />
+        <View
+            android:id="@+id/stopNow"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:background="@drawable/station_now"
+            app:layout_constraintBottom_toBottomOf="@id/track"
+            app:layout_constraintEnd_toEndOf="@id/gNow"
+            app:layout_constraintStart_toStartOf="@id/gNow"
+            app:layout_constraintTop_toTopOf="@id/track" />
 
-    <TextView
-        android:id="@+id/prevRoman"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Yeoksam"
-        android:textColor="@color/sub"
-        android:textSize="13sp"
-        app:layout_constraintEnd_toEndOf="@id/gPrev"
-        app:layout_constraintStart_toStartOf="@id/gPrev"
-        app:layout_constraintTop_toBottomOf="@id/prevName" />
+        <View
+            android:id="@+id/stopNext"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/station"
+            app:layout_constraintBottom_toBottomOf="@id/track"
+            app:layout_constraintEnd_toEndOf="@id/gNext"
+            app:layout_constraintStart_toStartOf="@id/gNext"
+            app:layout_constraintTop_toTopOf="@id/track" />
 
-    <TextView
-        android:id="@+id/nowName"
-        style="@style/Black"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:text="강남"
-        android:textSize="38sp"
-        app:layout_constraintEnd_toEndOf="@id/gNow"
-        app:layout_constraintStart_toStartOf="@id/gNow"
-        app:layout_constraintTop_toBottomOf="@id/track" />
-
-    <TextView
-        android:id="@+id/nowRoman"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Gangnam"
-        android:textColor="@color/sub"
-        android:textSize="13sp"
-        app:layout_constraintEnd_toEndOf="@id/gNow"
-        app:layout_constraintStart_toStartOf="@id/gNow"
-        app:layout_constraintTop_toBottomOf="@id/nowName" />
-
-    <TextView
-        android:id="@+id/nextName"
-        style="@style/Black"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="교대"
-        android:textSize="17sp"
-        app:layout_constraintEnd_toEndOf="@id/gNext"
-        app:layout_constraintStart_toStartOf="@id/gNext"
-        app:layout_constraintTop_toBottomOf="@id/track" />
-
-    <TextView
-        android:id="@+id/nextRoman"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Gyodae"
-        android:textColor="@color/sub"
-        android:textSize="13sp"
-        app:layout_constraintEnd_toEndOf="@id/gNext"
-        app:layout_constraintStart_toStartOf="@id/gNext"
-        app:layout_constraintTop_toBottomOf="@id/nextName" />
-
-    <!-- 내릴 역 -->
-    <TextView
-        android:id="@+id/dest"
-        style="@style/Black"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="28dp"
-        android:text="사당에서 내려요"
-        android:textSize="17sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/nowRoman" />
-
-    <TextView
-        android:id="@+id/remain"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:text="4정거장 남음"
-        android:textColor="@color/sub"
-        android:textSize="15sp"
-        app:layout_constraintBaseline_toBaselineOf="@id/dest"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <!-- 원형 메뉴 -->
-    <View
-        android:id="@+id/ring"
-        android:layout_width="260dp"
-        android:layout_height="260dp"
-        android:background="@drawable/ring_home"
-        app:layout_constraintBottom_toTopOf="@id/hint"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/dest"
-        app:layout_constraintVertical_bias="0.65" />
-
-    <View
-        android:id="@+id/halo"
-        android:layout_width="152dp"
-        android:layout_height="152dp"
-        android:background="@drawable/circle"
-        android:backgroundTint="@color/halo"
-        app:layout_constraintBottom_toBottomOf="@id/ring"
-        app:layout_constraintEnd_toEndOf="@id/ring"
-        app:layout_constraintStart_toStartOf="@id/ring"
-        app:layout_constraintTop_toTopOf="@id/ring" />
-
-    <LinearLayout
-        android:id="@+id/seat"
-        android:layout_width="136dp"
-        android:layout_height="136dp"
-        android:background="@drawable/circle"
-        android:backgroundTint="@color/green"
-        android:clickable="true"
-        android:focusable="true"
-        android:gravity="center"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="@id/ring"
-        app:layout_constraintEnd_toEndOf="@id/ring"
-        app:layout_constraintStart_toStartOf="@id/ring"
-        app:layout_constraintTop_toTopOf="@id/ring">
+        <!-- 다음 역으로 가는 중: 작은 점이 선 위를 움직임 -->
+        <View
+            android:id="@+id/train"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:background="@drawable/circle"
+            android:importantForAccessibility="no"
+            app:layout_constraintBottom_toBottomOf="@id/track"
+            app:layout_constraintStart_toStartOf="@id/gNow"
+            app:layout_constraintTop_toTopOf="@id/track" />
 
         <TextView
+            android:id="@+id/prevName"
             style="@style/Black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="곧 내려요"
-            android:textColor="@color/white"
-            android:textSize="26sp" />
+            android:layout_marginTop="28dp"
+            android:textSize="22sp"
+            app:layout_constraintEnd_toEndOf="@id/gPrev"
+            app:layout_constraintStart_toStartOf="@id/gPrev"
+            app:layout_constraintTop_toBottomOf="@id/track"
+            tools:text="역삼" />
 
         <TextView
+            android:id="@+id/prevRoman"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:text="같은 칸에 알리기"
-            android:textColor="@color/white"
+            android:textColor="@color/sub"
             android:textSize="13sp"
-            android:textStyle="bold" />
-    </LinearLayout>
+            app:layout_constraintEnd_toEndOf="@id/gPrev"
+            app:layout_constraintStart_toStartOf="@id/gPrev"
+            app:layout_constraintTop_toBottomOf="@id/prevName"
+            tools:text="Yeoksam" />
 
-    <ImageButton
-        android:id="@+id/look"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:background="@drawable/circle_outline"
-        android:contentDescription="오늘의 룩"
-        android:padding="16dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/ic_shirt"
-        app:layout_constraintCircle="@id/ring"
-        app:layout_constraintCircleAngle="0"
-        app:layout_constraintCircleRadius="124dp" />
+        <TextView
+            android:id="@+id/nowName"
+            style="@style/Black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:maxWidth="190dp"
+            android:maxLines="1"
+            android:textSize="40sp"
+            app:autoSizeMaxTextSize="40sp"
+            app:autoSizeMinTextSize="22sp"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintEnd_toEndOf="@id/gNow"
+            app:layout_constraintStart_toStartOf="@id/gNow"
+            app:layout_constraintTop_toBottomOf="@id/track"
+            tools:text="강남" />
 
-    <ImageButton
-        android:id="@+id/talk"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:background="@drawable/circle_outline"
-        android:contentDescription="오픈톡"
-        android:padding="16dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/ic_chat"
-        app:layout_constraintCircle="@id/ring"
-        app:layout_constraintCircleAngle="72"
-        app:layout_constraintCircleRadius="124dp" />
+        <TextView
+            android:id="@+id/nowRoman"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/sub"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@id/gNow"
+            app:layout_constraintStart_toStartOf="@id/gNow"
+            app:layout_constraintTop_toBottomOf="@id/nowName"
+            tools:text="Gangnam" />
 
-    <ImageButton
-        android:id="@+id/game"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:background="@drawable/circle_outline"
-        android:contentDescription="미니게임"
-        android:padding="16dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/ic_dice"
-        app:layout_constraintCircle="@id/ring"
-        app:layout_constraintCircleAngle="144"
-        app:layout_constraintCircleRadius="124dp" />
+        <TextView
+            android:id="@+id/nextName"
+            style="@style/Black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:textSize="22sp"
+            app:layout_constraintEnd_toEndOf="@id/gNext"
+            app:layout_constraintStart_toStartOf="@id/gNext"
+            app:layout_constraintTop_toBottomOf="@id/track"
+            tools:text="교대" />
 
-    <ImageButton
-        android:id="@+id/news"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:background="@drawable/circle_outline"
-        android:contentDescription="뉴스"
-        android:padding="16dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/ic_news"
-        app:layout_constraintCircle="@id/ring"
-        app:layout_constraintCircleAngle="216"
-        app:layout_constraintCircleRadius="124dp" />
+        <TextView
+            android:id="@+id/nextRoman"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/sub"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="@id/gNext"
+            app:layout_constraintStart_toStartOf="@id/gNext"
+            app:layout_constraintTop_toBottomOf="@id/nextName"
+            tools:text="Gyodae" />
 
-    <ImageButton
-        android:id="@+id/photo"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:background="@drawable/circle_outline"
-        android:contentDescription="이곳 사진"
-        android:padding="16dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/ic_camera"
-        app:layout_constraintCircle="@id/ring"
-        app:layout_constraintCircleAngle="288"
-        app:layout_constraintCircleRadius="124dp" />
+        <!-- 하차역 카드 -->
+        <LinearLayout
+            android:id="@+id/dest"
+            style="@style/Card"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="44dp"
+            android:layout_marginEnd="20dp"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:minHeight="50dp"
+            android:paddingStart="16dp"
+            android:paddingTop="12dp"
+            android:paddingEnd="12dp"
+            android:paddingBottom="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/nowRoman">
 
-    <TextView
-        android:id="@+id/lookLabel"
-        style="@style/Black"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:importantForAccessibility="no"
-        android:text="오늘의 룩"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@id/look"
-        app:layout_constraintStart_toStartOf="@id/look"
-        app:layout_constraintTop_toBottomOf="@id/look" />
+            <TextView
+                android:id="@+id/destTitle"
+                style="@style/Black"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="17sp"
+                tools:text="사당에서 내려요" />
 
-    <TextView
-        android:id="@+id/talkLabel"
-        style="@style/Black"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:importantForAccessibility="no"
-        android:text="오픈톡"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@id/talk"
-        app:layout_constraintStart_toStartOf="@id/talk"
-        app:layout_constraintTop_toBottomOf="@id/talk" />
+            <TextView
+                android:id="@+id/destLeft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/sub"
+                android:textSize="14sp"
+                tools:text="4정거장 남음" />
 
-    <TextView
-        android:id="@+id/gameLabel"
-        style="@style/Black"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:importantForAccessibility="no"
-        android:text="미니게임"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@id/game"
-        app:layout_constraintStart_toStartOf="@id/game"
-        app:layout_constraintTop_toBottomOf="@id/game" />
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_marginStart="6dp"
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_chevron"
+                app:tint="@color/sub" />
+        </LinearLayout>
 
-    <TextView
-        android:id="@+id/newsLabel"
-        style="@style/Black"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:importantForAccessibility="no"
-        android:text="뉴스"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@id/news"
-        app:layout_constraintStart_toStartOf="@id/news"
-        app:layout_constraintTop_toBottomOf="@id/news" />
+        <!-- 원형 메뉴 -->
+        <!-- 좁은 화면에서는 코드에서 메뉴를 비율대로 줄이고 이 틀의 높이도 맞춤 -->
+        <FrameLayout
+            android:id="@+id/menuBox"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:clipChildren="false"
+            app:layout_constraintBottom_toTopOf="@id/hint"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dest">
 
-    <TextView
-        android:id="@+id/photoLabel"
-        style="@style/Black"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:importantForAccessibility="no"
-        android:text="이곳 사진"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@id/photo"
-        app:layout_constraintStart_toStartOf="@id/photo"
-        app:layout_constraintTop_toBottomOf="@id/photo" />
+        <!-- 손가락으로 돌릴 수 있는 원형 메뉴 -->
+        <com.example.morningconnect.OrbitMenu
+            android:id="@+id/menu"
+            android:layout_width="372dp"
+            android:layout_height="372dp"
+            android:layout_gravity="center">
 
-    <TextView
-        android:id="@+id/hint"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="96dp"
-        android:text="내리기 1~2정거장 전에 눌러 주세요"
-        android:textColor="@color/sub"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+            <View
+                android:id="@+id/ring"
+                android:layout_width="298dp"
+                android:layout_height="298dp"
+                android:background="@drawable/ring_home"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/halo"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:background="@drawable/halo"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- 곧 내려요 -->
+            <LinearLayout
+                android:id="@+id/center"
+                android:layout_width="168dp"
+                android:layout_height="168dp"
+                android:background="@drawable/circle_green"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    style="@style/Black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="곧 내려요"
+                    android:textColor="@color/white"
+                    android:textSize="29sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="같은 칸에 알리기"
+                    android:textColor="#E6FFFFFF"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <!-- 바깥 메뉴 5개: 아이콘과 이름을 원 안에 함께 (오각형 배치, 돌리면 OrbitMenu 가 각도를 바꿈) -->
+            <LinearLayout
+                android:id="@+id/look"
+                android:layout_width="84dp"
+                android:layout_height="84dp"
+                android:background="@drawable/circle_menu"
+                android:clickable="true"
+                android:contentDescription="오늘의 룩"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintCircle="@id/center"
+                app:layout_constraintCircleAngle="0"
+                app:layout_constraintCircleRadius="142dp"
+                tools:ignore="MissingConstraints">
+
+                <ImageView
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_shirt"
+                    app:tint="@color/green_text" />
+
+                <TextView
+                    style="@style/Black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:gravity="center"
+                    android:importantForAccessibility="no"
+                    android:maxLines="1"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    app:autoSizeMaxTextSize="13sp"
+                    app:autoSizeMinTextSize="9sp"
+                    app:autoSizeTextType="uniform"
+                    android:text="오늘의 룩"
+                    android:textColor="@color/ink"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/talk"
+                android:layout_width="84dp"
+                android:layout_height="84dp"
+                android:background="@drawable/circle_menu"
+                android:clickable="true"
+                android:contentDescription="오픈톡 (준비 중)"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintCircle="@id/center"
+                app:layout_constraintCircleAngle="72"
+                app:layout_constraintCircleRadius="142dp"
+                tools:ignore="MissingConstraints">
+
+                <ImageView
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_chat"
+                    app:tint="@color/green_text" />
+
+                <TextView
+                    style="@style/Black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:gravity="center"
+                    android:importantForAccessibility="no"
+                    android:maxLines="1"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    app:autoSizeMaxTextSize="13sp"
+                    app:autoSizeMinTextSize="9sp"
+                    app:autoSizeTextType="uniform"
+                    android:text="오픈톡"
+                    android:textColor="@color/ink"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/game"
+                android:layout_width="84dp"
+                android:layout_height="84dp"
+                android:background="@drawable/circle_menu"
+                android:clickable="true"
+                android:contentDescription="미니게임 (준비 중)"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintCircle="@id/center"
+                app:layout_constraintCircleAngle="144"
+                app:layout_constraintCircleRadius="142dp"
+                tools:ignore="MissingConstraints">
+
+                <ImageView
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_dice"
+                    app:tint="@color/green_text" />
+
+                <TextView
+                    style="@style/Black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:gravity="center"
+                    android:importantForAccessibility="no"
+                    android:maxLines="1"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    app:autoSizeMaxTextSize="13sp"
+                    app:autoSizeMinTextSize="9sp"
+                    app:autoSizeTextType="uniform"
+                    android:text="미니게임"
+                    android:textColor="@color/ink"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/news"
+                android:layout_width="84dp"
+                android:layout_height="84dp"
+                android:background="@drawable/circle_menu"
+                android:clickable="true"
+                android:contentDescription="뉴스"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintCircle="@id/center"
+                app:layout_constraintCircleAngle="216"
+                app:layout_constraintCircleRadius="142dp"
+                tools:ignore="MissingConstraints">
+
+                <ImageView
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_news"
+                    app:tint="@color/green_text" />
+
+                <TextView
+                    style="@style/Black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:gravity="center"
+                    android:importantForAccessibility="no"
+                    android:maxLines="1"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    app:autoSizeMaxTextSize="13sp"
+                    app:autoSizeMinTextSize="9sp"
+                    app:autoSizeTextType="uniform"
+                    android:text="뉴스"
+                    android:textColor="@color/ink"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/photo"
+                android:layout_width="84dp"
+                android:layout_height="84dp"
+                android:background="@drawable/circle_menu"
+                android:clickable="true"
+                android:contentDescription="이곳 사진"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintCircle="@id/center"
+                app:layout_constraintCircleAngle="288"
+                app:layout_constraintCircleRadius="142dp"
+                tools:ignore="MissingConstraints">
+
+                <ImageView
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_camera"
+                    app:tint="@color/green_text" />
+
+                <TextView
+                    style="@style/Black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:gravity="center"
+                    android:importantForAccessibility="no"
+                    android:maxLines="1"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    app:autoSizeMaxTextSize="13sp"
+                    app:autoSizeMinTextSize="9sp"
+                    app:autoSizeTextType="uniform"
+                    android:text="이곳 사진"
+                    android:textColor="@color/ink"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+        </com.example.morningconnect.OrbitMenu>
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="28dp"
+            android:text="내리기 1~2정거장 전에 눌러 주세요"
+            android:textColor="@color/sub"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

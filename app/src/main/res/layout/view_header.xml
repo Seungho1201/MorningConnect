@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 공통 헤더: 원형 뒤로 버튼 + 제목 + 남은 정거장 -->
+<!-- 공통 헤더: 뒤로 + 제목 + 오른쪽 안내 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
+    android:minHeight="56dp"
     android:orientation="horizontal"
-    android:paddingStart="20dp"
-    android:paddingTop="24dp"
+    android:paddingStart="8dp"
+    android:paddingTop="16dp"
     android:paddingEnd="20dp"
     android:paddingBottom="8dp">
 
     <ImageButton
         android:id="@+id/back"
-        android:layout_width="44dp"
-        android:layout_height="44dp"
-        android:background="@drawable/circle_outline"
-        android:contentDescription="홈으로"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="뒤로"
         android:padding="12dp"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_back" />
@@ -28,20 +30,25 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_weight="1"
-        android:textSize="20sp" />
+        android:accessibilityHeading="true"
+        android:maxLines="1"
+        android:textSize="23sp"
+        app:autoSizeMaxTextSize="23sp"
+        app:autoSizeMinTextSize="14sp"
+        app:autoSizeTextType="uniform"
+        tools:text="곧 내려요 알림" />
 
     <TextView
-        android:id="@+id/status"
+        android:id="@+id/right"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/pill"
-        android:drawablePadding="6dp"
-        android:gravity="center_vertical"
-        android:paddingStart="12dp"
-        android:paddingTop="8dp"
-        android:paddingEnd="12dp"
-        android:paddingBottom="8dp"
-        android:textSize="13sp"
-        android:textStyle="bold"
-        app:drawableStartCompat="@drawable/dot" />
+        android:layout_marginStart="8dp"
+        android:gravity="end|center_vertical"
+        android:lineBreakWordStyle="phrase"
+        android:maxWidth="150dp"
+        android:maxLines="2"
+        android:textColor="@color/sub"
+        android:textSize="14sp"
+        android:visibility="gone"
+        tools:targetApi="33" />
 </LinearLayout>

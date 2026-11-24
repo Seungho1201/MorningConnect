@@ -1,298 +1,191 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 곧 내려요 3 · 서로 찾기 + 하차 직전 재확인 -->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- 연결됐어요: 같은 색·번호 화면으로 서로 찾기 + 진행 단계 + 인증서 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/main"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg">
+    android:background="@color/orange_match"
+    android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <!-- 색 신호 -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/signal"
-            android:orientation="vertical"
-            android:paddingBottom="28dp">
-
-            <include
-                android:id="@+id/header"
-                layout="@layout/view_header" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:text="서로의 화면 색"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    style="@style/Black"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:letterSpacing="-0.02"
-                    android:text="주황"
-                    android:textSize="64sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:lineSpacingExtra="6dp"
-                    android:text="같은 색 화면을 든 분이 오고 있어요.\n폰 화면을 앞으로 들어 보여 주세요."
-                    android:textSize="17sp"
-                    android:textStyle="bold" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:orientation="horizontal">
-
-                    <com.google.android.material.button.MaterialButton
-                        style="@style/Btn.Outline.Pill"
-                        android:layout_width="wrap_content"
-                        android:layout_height="44dp"
-                        android:text="화면 밝기 최대로" />
-
-                    <com.google.android.material.button.MaterialButton
-                        style="@style/Btn.Outline.Pill"
-                        android:layout_width="wrap_content"
-                        android:layout_height="44dp"
-                        android:layout_marginStart="8dp"
-                        android:text="진동으로 알리기" />
-                </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
-
-        <!-- 연결된 분 -->
-        <com.google.android.material.card.MaterialCardView
-            style="@style/Card"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="20dp"
-            app:cardCornerRadius="24dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingStart="16dp"
-                android:paddingTop="14dp"
-                android:paddingEnd="16dp"
-                android:paddingBottom="14dp">
-
-                <com.example.morningconnect.CharacterView
-                    android:id="@+id/partner"
-                    android:layout_width="80dp"
-                    android:layout_height="104dp"
-                    android:contentDescription="연결된 분의 오늘의 룩" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="14dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="이 분이 자리를 이어받아요"
-                        android:textColor="@color/sub"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        style="@style/Black"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:lineSpacingExtra="4dp"
-                        android:text="남색 코트 · 흰색 티셔츠 · 베이지 바지 · 회색 백팩"
-                        android:textSize="17sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:text="● 가까워지는 중"
-                        android:textColor="@color/green_text"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="24dp"
-            android:lineSpacingExtra="4dp"
-            android:text="내리고 나서 블루투스 범위를 벗어나면 하차로 자동 처리돼요."
-            android:textColor="@color/sub"
-            android:textSize="12sp" />
-    </LinearLayout>
-
-    <!-- 하차 직전 재확인 -->
-    <View
-        android:id="@+id/scrim"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/scrim"
-        android:clickable="true"
-        android:focusable="false" />
-
-    <LinearLayout
-        android:id="@+id/sheet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="@drawable/sheet"
-        android:clickable="true"
-        android:orientation="vertical"
+        android:layout_marginTop="12dp"
+        android:gravity="center_vertical"
         android:paddingStart="20dp"
-        android:paddingTop="12dp"
-        android:paddingEnd="20dp"
-        android:paddingBottom="28dp">
-
-        <View
-            android:layout_width="44dp"
-            android:layout_height="5dp"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/pill"
-            android:backgroundTint="@color/gray" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            android:text="방배 출발 · 다음 역 사당"
-            android:textColor="@color/sub"
-            android:textSize="13sp"
-            android:textStyle="bold" />
+        android:paddingEnd="8dp">
 
         <TextView
             style="@style/Black"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            android:text="지금 내리시나요?"
-            android:textSize="26sp" />
+            android:layout_weight="1"
+            android:accessibilityHeading="true"
+            android:text="연결됐어요"
+            android:textSize="17sp" />
 
         <TextView
+            android:id="@+id/cancel"
+            style="@style/Black"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            android:lineSpacingExtra="4dp"
-            android:text="\'아니요\'를 누르면 연결이 취소되고, 기다리던 다른 분께 다시 알려요."
-            android:textColor="@color/sub"
-            android:textSize="14sp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            android:orientation="horizontal">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/no"
-                style="@style/Btn.Outline"
-                android:layout_width="0dp"
-                android:layout_height="60dp"
-                android:layout_weight="1"
-                android:text="아니요, 더 가요"
-                app:cornerRadius="18dp" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/yes"
-                style="@style/Btn"
-                android:layout_width="0dp"
-                android:layout_height="60dp"
-                android:layout_marginStart="10dp"
-                android:layout_weight="1.3"
-                android:text="네, 내려요"
-                android:textSize="18sp"
-                app:cornerRadius="18dp" />
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackground"
             android:gravity="center"
-            android:text="사당 도착 전까지 답이 없으면 \'네\'로 처리해요"
-            android:textColor="@color/sub"
-            android:textSize="12sp" />
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:text="취소"
+            android:textSize="16sp" />
     </LinearLayout>
 
-    <!-- '아니요' 누른 뒤 -->
-    <FrameLayout
-        android:id="@+id/cancelled"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:accessibilityLiveRegion="polite"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
-        android:paddingBottom="28dp"
-        android:visibility="gone">
-
-    <com.google.android.material.card.MaterialCardView
-        style="@style/Card"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/ink"
-        app:cardCornerRadius="18dp">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="16dp">
+            android:orientation="vertical"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp">
 
             <TextView
-                android:layout_width="0dp"
+                style="@style/Black"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="연결을 취소하고 다른 분께 다시 알렸어요"
-                android:textColor="@color/white"
-                android:textSize="15sp"
-                android:textStyle="bold" />
+                android:layout_marginTop="32dp"
+                android:gravity="center"
+                android:text="이 색 화면을 든 사람을 찾으세요"
+                android:textSize="18sp" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/undo"
-                style="@style/Btn"
-                android:layout_width="wrap_content"
-                android:layout_height="44dp"
-                android:layout_marginStart="12dp"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
-                android:text="되돌리기"
-                android:textColor="@color/mint"
-                android:textSize="15sp"
-                app:backgroundTint="@android:color/transparent" />
+            <TextView
+                android:id="@+id/number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="serif"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:textSize="96sp"
+                android:textStyle="bold"
+                tools:text="47" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:text="두 폰에 같은 색과 번호가 떠요"
+                android:textSize="15sp" />
+
+            <LinearLayout
+                style="@style/Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:layout_marginBottom="16dp"
+                android:orientation="vertical"
+                android:padding="18dp">
+
+                <LinearLayout
+                    android:id="@+id/partnerRow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="true"
+                    android:gravity="center_vertical">
+
+                    <com.example.morningconnect.CharacterView
+                        android:id="@+id/avatar"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:background="@drawable/box_avatar"
+                        android:importantForAccessibility="no"
+                        android:padding="6dp" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="상대방 인상착의"
+                            android:textColor="@color/sub"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/partnerLook"
+                            style="@style/Black"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:textSize="16sp"
+                            tools:text="베이지 코트 · 검정 바지 · 백팩" />
+
+                        <TextView
+                            android:id="@+id/partnerSeat"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:textColor="@color/sub"
+                            android:textSize="13sp"
+                            tools:text="3-2 문 오른쪽 · 끝에서 두 번째 자리" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="6dp"
+                    android:background="@color/divider" />
+
+                <include
+                    android:id="@+id/step1"
+                    layout="@layout/item_step" />
+
+                <include
+                    android:id="@+id/step2"
+                    layout="@layout/item_step" />
+
+                <include
+                    android:id="@+id/step3"
+                    layout="@layout/item_step" />
+            </LinearLayout>
         </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
-    </FrameLayout>
-</FrameLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/cert"
+        style="@style/Btn"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:textSize="19sp"
+        app:backgroundTint="@color/btn_dark"
+        app:icon="@drawable/ic_qr"
+        app:iconGravity="textStart"
+        app:iconPadding="12dp"
+        app:iconSize="26dp"
+        app:iconTint="@color/white"
+        tools:text="인증서 보여주기" />
+
+    <TextView
+        android:id="@+id/certHint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center"
+        android:minHeight="40dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:textSize="14sp"
+        android:layout_marginBottom="8dp"
+        tools:text="상대가 인증서를 스캔하면 인계가 확정돼요" />
+</LinearLayout>
