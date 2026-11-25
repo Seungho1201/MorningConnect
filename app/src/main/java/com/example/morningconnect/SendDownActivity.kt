@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.lifecycle.Lifecycle
 import com.example.morningconnect.databinding.ActivitySendDownBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
@@ -95,7 +96,9 @@ class SendDownActivity : AppCompatActivity() {
             h.stage = Stage.MATCHED
             store.handoff = h.toJson()
             waiting = null
-            open<MatchActivity>()
+            // 앱이 뒤에 있으면 화면을 띄울 수 없어서 알림으로
+            if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) open<MatchActivity>()
+            else SeatService.notifyMatched(this)
             finish()
         }
         render()

@@ -1,9 +1,12 @@
 package com.example.morningconnect
 
+import android.bluetooth.BluetoothAdapter
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import com.example.morningconnect.databinding.ActivityMainBinding
@@ -18,6 +21,14 @@ class MainActivity : AppCompatActivity() {
             render()
             ticker.postDelayed(this, 2_000)
         }
+    }
+
+    // 같은 칸 찾기: 권한 → 블루투스 켜기 → 서비스 시작
+    private val blePermission = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
+        if (SeatService.missingPermissions(this).isEmpty()) startBle() else toast("블루투스 권한이 있어야 같은 칸 사람을 찾을 수 있어요")
+    }
+    private val enableBt = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (SeatService.start(this)) render()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,7 +46,7 @@ class MainActivity : AppCompatActivity() {
             listOf(talk, game).forEach { it.setOnClickListener { toast("준비 중인 기능이에요") } }
             my.setOnClickListener { open<MyActivity>() }
             line.setOnClickListener { askDirection() }
-            carCount.setOnClickListener { askSimulatedAlert() }
+            carCount.setOnClickListener { if (SeatService.running) toast("블루투스로 같은 칸 사람을 찾고 있어요") else askBle() }
             menu.setItems(listOf(look, talk, game, news, photo))
             // 드래그가 어려운 경우(화면 읽기 등)를 위한 돌리기 동작
             ViewCompat.addAccessibilityAction(menu, "메뉴를 시계 방향으로 돌리기") { _, _ -> menu.rotateBy(1); true }
@@ -44,6 +55,7 @@ class MainActivity : AppCompatActivity() {
                 if (r - l != or - ol || b - t != ob - ot) fitMenu(r - l, b - t)
             }
         }
+        if (savedInstanceState == null && SeatService.hasBle(this)) startBle()
     }
 
     // 원형 메뉴(372x372dp)를 남는 공간(폭·높이)에 맞게 줄임. 고정 화면이라 작은 폰에서도 스크롤 없이 다 보이게
@@ -56,6 +68,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        SeatService.start(this)  // 알림에서 껐어도 앱을 다시 열면 켬 (권한·블루투스가 준비된 경우만)
         tick.run()
     }
 
@@ -71,7 +84,9 @@ class MainActivity : AppCompatActivity() {
         val cur = clock.current(now)
         with(binding) {
             lineName.text = "호선 ${Line2.dirName(clock.dir)}"
-            carCount.text = "같은 칸 ${SeatNetwork.instance.nearbyCount()}명"
+            val nearby = (SeatNetwork.instance as? BleSeatNetwork)?.nearby().orEmpty()
+            carCount.text = if (SeatService.running) "같은 칸 ${nearby.size}명" else "블루투스 꺼짐"
+            menu.nearby = nearby
 
             val prev = Line2.at(Line2.step(cur, -1, clock.dir))
             val here = Line2.at(cur)
@@ -131,13 +146,23 @@ class MainActivity : AppCompatActivity() {
             .show()
     }
 
-    // 주변 유저 찾기(블루투스)는 아직 없어서, 받는 쪽 화면은 시뮬레이션 알림으로 확인
-    private fun askSimulatedAlert() {
-        MaterialAlertDialogBuilder(this)
+    private fun startBle() {
+        val missing = SeatService.missingPermissions(this)
+        when {
+            missing.isNotEmpty() -> blePermission.launch((missing + SeatService.permissions).distinct().toTypedArray())
+            !SeatService.bluetoothOn(this) -> enableBt.launch(Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE))
+            else -> { SeatService.start(this); render() }
+        }
+    }
+
+    // 블루투스를 못 쓰는 동안: 켜기, 또는 같은 칸 사람이 보낸 것처럼 체험
+    private fun askBle() {
+        val dialog = MaterialAlertDialogBuilder(this)
             .setTitle("같은 칸 사람 찾기")
-            .setMessage("블루투스로 같은 칸 사람을 찾는 기능은 준비 중이에요.\n지금은 같은 칸 사람이 보낸 것처럼 자리 알림을 받아 볼 수 있어요.")
-            .setPositiveButton("자리 알림 받아 보기") { _, _ -> open<ReceiveActivity>() }
+            .setMessage("블루투스로 가까운 사람을 찾아 자리 알림을 주고받아요. 앱을 닫아도 알림을 받을 수 있어요.\n\n블루투스 없이 받는 쪽 화면을 체험해 볼 수도 있어요.")
+            .setNeutralButton("체험해 보기") { _, _ -> open<ReceiveActivity>() }
             .setNegativeButton("닫기", null)
-            .show()
+        if (SeatService.hasBle(this)) dialog.setPositiveButton("블루투스 켜기") { _, _ -> startBle() }
+        dialog.show()
     }
 }

@@ -2,6 +2,8 @@ package com.example.morningconnect
 
 import android.animation.ValueAnimator
 import android.content.Context
+import android.graphics.Canvas
+import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
@@ -9,8 +11,10 @@ import android.view.ViewConfiguration
 import android.view.animation.DecelerateInterpolator
 import androidx.constraintlayout.widget.ConstraintLayout
 import kotlin.math.atan2
+import kotlin.math.cos
 import kotlin.math.hypot
 import kotlin.math.roundToInt
+import kotlin.math.sin
 
 /**
  * 원형 메뉴: 바깥 버튼들을 원을 따라 손가락으로 돌릴 수 있다.
@@ -33,6 +37,13 @@ class OrbitMenu(context: Context, attrs: AttributeSet? = null) : ConstraintLayou
     private var velocity = 0f   // 도/초
     private var dragging = false
     private var anim: ValueAnimator? = null
+
+    // 블루투스로 찾은 근처 사람 (폰 번호). 가운데 버튼 둘레에 파란 점으로 고르게 띄움
+    var nearby: List<Int> = emptyList()
+        set(value) {
+            if (field != value) { field = value; invalidate() }
+        }
+    private val dotPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = context.getColor(R.color.nearby) }
 
     // 버튼(아이콘+이름이 든 원)을 원 위에 고르게 배치 (첫 번째가 맨 위)
     fun setItems(items: List<View>) {
@@ -111,6 +122,20 @@ class OrbitMenu(context: Context, attrs: AttributeSet? = null) : ConstraintLayou
 
     override fun performClick() = super.performClick()
 
+    // 가운데 버튼(반지름 84dp)과 연한 띠(100dp) 사이라 바깥 버튼(142dp ± 42dp)과 겹치지 않음
+    override fun dispatchDraw(canvas: Canvas) {
+        super.dispatchDraw(canvas)
+        val dots = nearby.take(MAX_DOTS)
+        dots.forEachIndexed { i, _ ->
+            // 36°부터: 멈춰 있을 때 바깥 버튼(72° 간격) 사이 빈 곳
+            val a = Math.toRadians(36 + i * 360.0 / dots.size)
+            canvas.drawCircle(
+                width / 2f + DOT_ORBIT.dp * sin(a).toFloat(), height / 2f - DOT_ORBIT.dp * cos(a).toFloat(),
+                DOT_RADIUS.dp.toFloat(), dotPaint,
+            )
+        }
+    }
+
     // 관성 + 가장 가까운 자리로 맞춤
     private fun settle() {
         val target = Math.round((offset + velocity * 0.25f) / step) * step
@@ -137,5 +162,11 @@ class OrbitMenu(context: Context, attrs: AttributeSet? = null) : ConstraintLayou
     override fun onDetachedFromWindow() {
         anim?.cancel()
         super.onDetachedFromWindow()
+    }
+
+    companion object {
+        private const val DOT_ORBIT = 92
+        private const val DOT_RADIUS = 5
+        private const val MAX_DOTS = 40  // 둘레에 겹치지 않고 들어가는 만큼
     }
 }

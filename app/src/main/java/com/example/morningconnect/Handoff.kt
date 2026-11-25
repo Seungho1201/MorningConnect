@@ -2,7 +2,6 @@ package com.example.morningconnect
 
 import org.json.JSONObject
 import java.security.SecureRandom
-import java.util.UUID
 import javax.crypto.Mac
 import javax.crypto.spec.SecretKeySpec
 
@@ -24,15 +23,16 @@ data class Seat(val row: Int, val bench: Int, val pos: Int) {
     }
 }
 
-// 상대방 정보 (실서비스에서는 블루투스로 받는 값)
-class Peer(val look: Look, val kept: Int, val total: Int) {
+// 상대방 정보 (블루투스로 받는 값). device = 상대 폰의 앱 안 번호 (BLE 메시지 주소)
+class Peer(val look: Look, val kept: Int, val total: Int, val device: Int = 0) {
     val trust get() = Store.trustOf(kept, total)
 }
 
+// id = 세션 번호 4바이트(16진수 8자), secret = 8바이트(16진수 16자): BLE 광고 한 개에 들어가는 크기
 class Handoff(
     val id: String,
     val role: Role,
-    val secret: String,
+    var secret: String,         // 받는 사람은 연결이 확정될 때 넘겨주는 사람에게서 받음
     val seat: Seat,
     val car: Int,
     val destStation: Int,        // 넘겨주는 사람이 내릴 역
@@ -67,7 +67,7 @@ class Handoff(
         .put("row", seat.row).put("bench", seat.bench).put("pos", seat.pos)
         .put("car", car).put("dest", destStation).put("preg", pregnantPriority).put("stage", stage.name)
         .apply {
-            partner?.let { put("pLook", it.look.toJson()).put("pKept", it.kept).put("pTotal", it.total) }
+            partner?.let { put("pLook", it.look.toJson()).put("pKept", it.kept).put("pTotal", it.total).put("pDev", it.device) }
         }
 
     companion object {
@@ -77,12 +77,14 @@ class Handoff(
         )
 
         fun newSecret(): String {
-            val b = ByteArray(16).also { SecureRandom().nextBytes(it) }
+            val b = ByteArray(8).also { SecureRandom().nextBytes(it) }
             return b.joinToString("") { "%02x".format(it) }
         }
 
+        fun sessionId(session: Int) = "%08x".format(session)
+
         fun create(role: Role, seat: Seat, car: Int, dest: Int, pregnantPriority: Boolean) =
-            Handoff(UUID.randomUUID().toString(), role, newSecret(), seat, car, dest, pregnantPriority)
+            Handoff(sessionId(SecureRandom().nextInt()), role, newSecret(), seat, car, dest, pregnantPriority)
 
         fun fromJson(o: JSONObject?): Handoff? {
             o ?: return null
@@ -91,7 +93,7 @@ class Handoff(
                     o.getString("id"), Role.valueOf(o.getString("role")), o.getString("secret"),
                     Seat(o.getInt("row"), o.getInt("bench"), o.getInt("pos")),
                     o.getInt("car"), o.getInt("dest"), o.getBoolean("preg"), Stage.valueOf(o.getString("stage")),
-                    o.optJSONObject("pLook")?.let { Peer(Look.fromJson(it), o.getInt("pKept"), o.getInt("pTotal")) },
+                    o.optJSONObject("pLook")?.let { Peer(Look.fromJson(it), o.getInt("pKept"), o.getInt("pTotal"), o.optInt("pDev")) },
                 )
             }.getOrNull()
         }

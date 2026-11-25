@@ -86,7 +86,11 @@ class MatchActivity : AppCompatActivity() {
         if (handoff.role == Role.RECEIVER && handoff.stage == Stage.MATCHED) {
             waits += SeatNetwork.instance.awaitGiverConfirm(handoff) { setStage(Stage.CONFIRMED) }
         }
-        if (handoff.role == Role.GIVER) tick.run()
+        if (handoff.role == Role.GIVER) {
+            // 앱이 다시 켜졌어도 상대가 하차 재확인을 받을 수 있게 다시 알림
+            if (handoff.stage == Stage.CONFIRMED) SeatNetwork.instance.confirmGetOff(handoff)
+            tick.run()
+        }
     }
 
     override fun onPause() {
@@ -151,7 +155,10 @@ class MatchActivity : AppCompatActivity() {
         MaterialAlertDialogBuilder(this)
             .setTitle("곧 ${dest.josa("이에요", "예요")}")
             .setMessage("${dest}에서 내리시나요? 확인하면 상대에게 알려요.")
-            .setPositiveButton("네, 내려요") { _, _ -> setStage(Stage.CONFIRMED) }
+            .setPositiveButton("네, 내려요") { _, _ ->
+                setStage(Stage.CONFIRMED)
+                SeatNetwork.instance.confirmGetOff(handoff)
+            }
             .setNegativeButton("아니요") { _, _ -> askCancel() }
             .show()
     }
@@ -216,6 +223,7 @@ class MatchActivity : AppCompatActivity() {
             .setMessage("약속을 지키지 않은 것으로 기록되어 신뢰도가 내려가요.")
             .setPositiveButton("취소하기") { _, _ ->
                 store.breakPromise()
+                SeatNetwork.instance.end(handoff)
                 handoff.stage = Stage.CANCELLED
                 store.handoff = null
                 toast("연결을 취소했어요")
@@ -240,6 +248,8 @@ class MatchActivity : AppCompatActivity() {
         }
         handoff.stage = Stage.DONE
         store.handoff = null
+        // 받는 사람이 확인했다는 걸 넘겨주는 사람 폰이 알아야 그쪽도 완료됨
+        if (handoff.role == Role.RECEIVER) SeatNetwork.instance.reportScanned(handoff) else SeatNetwork.instance.end(handoff)
         open<DoneActivity> {
             putExtra(DoneActivity.EXTRA_ROLE, handoff.role.name)
             putExtra(DoneActivity.EXTRA_STATION, handoff.destStation)

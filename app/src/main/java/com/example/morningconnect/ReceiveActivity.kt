@@ -17,12 +17,15 @@ class ReceiveActivity : AppCompatActivity() {
         binding = ActivityReceiveBinding.inflate(layoutInflater)
         setScreen(binding.root, dark = true)
 
-        val saved = savedInstanceState?.getString("handoff")?.let { Handoff.fromJson(JSONObject(it)) }
-        if (saved?.partner != null) {
-            handoff = saved; giver = saved.partner!!
+        // 알림에서 온 자리 알림(BLE) → 화면 회전 등으로 저장된 것 → 체험용 시뮬레이션 순
+        val given = (savedInstanceState?.getString("handoff") ?: intent.getStringExtra(EXTRA_HANDOFF))
+            ?.let { Handoff.fromJson(JSONObject(it)) }?.takeIf { it.partner != null }
+        if (given != null) {
+            handoff = given; giver = given.partner!!
         } else {
+            val sim = SeatNetwork.instance as? SimulatedSeatNetwork ?: run { finish(); return }
             val clock = store.clock
-            val (h, p) = SeatNetwork.instance.incoming(clock.current(), clock.dir, store.car)
+            val (h, p) = sim.incoming(clock.current(), clock.dir, store.car)
             handoff = h.apply { partner = p }; giver = p
         }
 
@@ -85,5 +88,9 @@ class ReceiveActivity : AppCompatActivity() {
             open<MatchActivity>()
             finish()
         }
+    }
+
+    companion object {
+        const val EXTRA_HANDOFF = "handoff"
     }
 }

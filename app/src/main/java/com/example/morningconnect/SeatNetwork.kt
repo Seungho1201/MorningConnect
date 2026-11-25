@@ -7,9 +7,8 @@ import kotlin.random.Random
 /**
  * 같은 칸 사람들과 주고받는 통신 층.
  *
- * 실서비스에서는 블루투스(BLE)로 같은 칸 사람을 찾고 알림·수락·인증 결과를 주고받는다.
- * "주변 유저 찾기"는 이번 구현 범위에서 제외되어, 지금은 [SimulatedSeatNetwork] 가
- * 상대방 역할을 대신한다. BLE 구현체를 만들면 [SeatNetwork.instance] 만 바꾸면 된다.
+ * 블루투스(BLE)를 쓸 수 있으면 [SeatService] 가 [BleSeatNetwork] 로 바꿔 끼운다.
+ * 권한이 없거나 블루투스가 꺼져 있으면 [SimulatedSeatNetwork] 가 상대방 역할을 대신한다 (체험·테스트용).
  */
 interface SeatNetwork {
     // 같은 칸에 있는 사람 수
@@ -27,8 +26,14 @@ interface SeatNetwork {
     // 받는 사람: '갈게요' 결과 (먼저 누른 사람이 있으면 false)
     fun accept(handoff: Handoff, onResult: (Boolean) -> Unit): Cancel
 
-    // 받는 사람 쪽에 들어오는 새 자리 알림
-    fun incoming(current: Int, dir: Int, car: Int): Pair<Handoff, Peer>
+    // 넘겨주는 사람: 하차 재확인을 상대에게 알림
+    fun confirmGetOff(handoff: Handoff) {}
+
+    // 받는 사람: 인증서(QR·번호)를 확인했다고 상대에게 알림
+    fun reportScanned(handoff: Handoff) {}
+
+    // 인계가 끝나거나 취소되면 알리던 것을 거둠
+    fun end(handoff: Handoff) {}
 
     fun interface Cancel { fun cancel() }
 
@@ -57,7 +62,8 @@ class SimulatedSeatNetwork(private val random: Random = Random.Default) : SeatNe
 
     override fun accept(handoff: Handoff, onResult: (Boolean) -> Unit) = later(600, 1_200) { onResult(true) }
 
-    override fun incoming(current: Int, dir: Int, car: Int): Pair<Handoff, Peer> {
+    // 받는 사람 쪽에 들어오는 새 자리 알림 (체험용)
+    fun incoming(current: Int, dir: Int, car: Int): Pair<Handoff, Peer> {
         val seat = Seat(random.nextInt(2), random.nextInt(3), random.nextInt(Seat.POSITIONS.size))
         val dest = Line2.step(current, 2, dir)
         return Handoff.create(Role.RECEIVER, seat, car, dest, false) to randomPeer()
